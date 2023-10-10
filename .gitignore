@@ -2,6 +2,9 @@
 /dist
 /node_modules
 
+#local env file
+.env
+
 # Logs
 logs
 *.log
@@ -23,7 +26,6 @@ lerna-debug.log*
 .project
 .classpath
 .c9/
-.env
 *.launch
 .settings/
 *.sublime-workspace

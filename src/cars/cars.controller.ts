@@ -9,6 +9,7 @@ import {
 import { CarsService } from './cars.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags } from '@nestjs/swagger';
+import { CarDto } from './dto/car.dto';
 
 @ApiTags('cars')
 @Controller('cars')
@@ -27,7 +28,7 @@ export class CarsController {
   }
 
   @Get()
-  async findAll() {
+  async findAll(): Promise<CarDto[]> {
     try {
       return await this.carsService.findAll();
     } catch (error) {
@@ -36,7 +37,7 @@ export class CarsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string): Promise<CarDto> {
     try {
       return this.carsService.findOne(id);
     } catch (error) {

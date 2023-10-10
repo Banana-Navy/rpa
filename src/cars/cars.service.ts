@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCarDto } from './dto/create-car.dto';
-import { UpdateCarDto } from './dto/update-car.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { CarDocument } from './schema/cars.schema';
 import { Model } from 'mongoose';
 import * as XLSX from 'xlsx';
+import { CarDto } from './dto/car.dto';
 
 @Injectable()
 export class CarsService {
@@ -73,7 +72,7 @@ export class CarsService {
     }
   }
 
-  async findAll() {
+  async findAll(): Promise<CarDto[]> {
     try {
       const cars = await this.carModel.find();
       return cars;
@@ -82,7 +81,7 @@ export class CarsService {
     }
   }
 
-  async findOne(id) {
+  async findOne(id): Promise<CarDto> {
     try {
       const car = await this.carModel.findById({ _id: id });
       return car;
