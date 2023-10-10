@@ -56,7 +56,7 @@ export class Car {
   message: string;
 
   @Prop({ type: Number, default: '' })
-  validate: number;
+  validation: number;
 }
 
 export type CarDocument = Car & Document;

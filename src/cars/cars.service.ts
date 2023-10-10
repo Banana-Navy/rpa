@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { CarDocument } from './schema/cars.schema';
 import { Model } from 'mongoose';
 import * as XLSX from 'xlsx';
-import { CarDto } from './dto/cars.dto';
+import { CreateCarDto } from './dto/create-cars.dto';
 
 @Injectable()
 export class CarsService {
@@ -60,7 +60,7 @@ export class CarsService {
           calculatedMargin: item.Marge,
           status: item.Statut,
           message: item.Message,
-          validate: item.Valider,
+          validation: item.Valider,
         };
       });
 
@@ -72,7 +72,7 @@ export class CarsService {
     }
   }
 
-  async findAll(): Promise<CarDto[]> {
+  async findAll(): Promise<CreateCarDto[]> {
     try {
       const cars = await this.carModel.find();
       return cars;
@@ -81,7 +81,7 @@ export class CarsService {
     }
   }
 
-  async findOne(id): Promise<CarDto> {
+  async findOne(id): Promise<CreateCarDto> {
     try {
       const car = await this.carModel.findById({ _id: id });
       return car;

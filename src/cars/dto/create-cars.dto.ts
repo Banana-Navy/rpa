@@ -1,4 +1,4 @@
-export class CarDto {
+export class CreateCarDto {
   _id?: string;
   offer: string;
   brand: string;
@@ -17,5 +17,5 @@ export class CarDto {
   calculatedMargin: number;
   status: string;
   message: string;
-  validate: number;
+  validation: number;
 }
