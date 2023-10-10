@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { CarDocument } from './schema/cars.schema';
 import { Model } from 'mongoose';
 import * as XLSX from 'xlsx';
-import { CarDto } from './dto/car.dto';
+import { CarDto } from './dto/cars.dto';
 
 @Injectable()
 export class CarsService {

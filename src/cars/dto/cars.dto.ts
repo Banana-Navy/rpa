@@ -1,4 +1,5 @@
 export class CarDto {
+  _id?: string;
   offer: string;
   brand: string;
   model: string;

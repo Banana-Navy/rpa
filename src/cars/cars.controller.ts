@@ -9,7 +9,7 @@ import {
 import { CarsService } from './cars.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags } from '@nestjs/swagger';
-import { CarDto } from './dto/car.dto';
+import { CarDto } from './dto/cars.dto';
 
 @ApiTags('cars')
 @Controller('cars')
