@@ -20,18 +20,23 @@ export class CarsService {
       let data = XLSX.utils.sheet_to_json(worksheet);
 
       interface ExcelCarData {
+        Offre: string;
         Marque: string;
         Modèle: string;
+        Carrosserie: string;
+        'Nombre de portes': string;
         Version: string;
         Immatriculation: string;
         Carburant: string;
         Puissance: string;
         Transmission: string;
         'Kilométrage estimé': string;
+        'Modèle Choisi': string;
+        'Prix minimum': string;
         'prix min divisé par 1,25': number;
-        marge: number;
-        message: string;
-        statut: string;
+        Marge: number;
+        Statut: string;
+        Message: string;
         Valider: number;
       }
 
@@ -39,20 +44,24 @@ export class CarsService {
         console.log(item);
 
         return {
-          Marque: item.Marque,
-          Model: item.Modèle,
-          Version: item.Version,
-          Immatriculation: item.Immatriculation,
-          Carburant: item.Carburant,
-          Puissance: item.Puissance,
-          Transmission: item.Transmission,
-          KilometrageEstime: item['Kilométrage estimé'],
-          PrixMinDiv: item['prix min divisé par 1,25'],
-          Marge: item.marge,
-          Degats: item['dégâts'],
-          Message: item.message,
-          Status: item.statut,
-          Valider: item.Valider,
+          offer: item.Offre,
+          brand: item.Marque,
+          model: item.Modèle,
+          carBody: item.Carrosserie,
+          doorsNumber: item['Nombre de portes'],
+          version: item.Version,
+          registration: item.Immatriculation,
+          fuelType: item.Carburant,
+          power: item.Puissance,
+          transmission: item.Transmission,
+          kmEstimated: item['Kilométrage estimé'],
+          autoscoutModel: item['Modèle Choisi'],
+          autoscoutMinPrice: item['Prix minimum'],
+          calculatedPrice: item['prix min divisé par 1,25'],
+          calculatedMargin: item.Marge,
+          status: item.Statut,
+          message: item.Message,
+          validate: item.Valider,
         };
       });
 

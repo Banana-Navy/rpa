@@ -5,7 +5,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
   app.enableCors();
-  await app.listen(8000);
+
+  await app.listen(process.env.PORT);
 }
 
 // 2WNw392Qb5V1VbYmSIbNzFphd5x_52HsCrKRKe4sPZ1ZUngEL : API key

@@ -6,14 +6,15 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { CarsModule } from './cars/cars.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     ScheduleModule.forRoot(),
+    ConfigModule.forRoot(),
     MongooseModule.forRootAsync({
       useFactory: async () => ({
-        // mongodb+srv://okara:b20c2271@bananadev.u7tbh.mongodb.net/Banana_DEV?retryWrites=true&w=majority
-        uri: 'mongodb+srv://mahmoudioomar7:9nBqRlfIAVQx0SWp@robocorpdev.9e5qvgr.mongodb.net/robocorp?retryWrites=true&w=majority',
+        uri: process.env.MONGO_URI,
         useNewUrlParser: true,
         useUnifiedTopology: true,
       }),
