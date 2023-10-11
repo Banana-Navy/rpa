@@ -40,8 +40,9 @@ export class CarsService {
       }
 
       data = data.map((item: ExcelCarData) => {
-        console.log(item);
-
+        const autoscoutMinPrice = item['Prix minimum']
+          ? parseInt(item['Prix minimum'].replace('.', ''), 10)
+          : null;
         return {
           carId: item.Offre,
           brand: item.Marque,
@@ -55,7 +56,7 @@ export class CarsService {
           transmission: item.Transmission,
           kmEstimated: item['Kilométrage estimé'],
           autoscoutModel: item['Modèle Choisi'],
-          autoscoutMinPrice: item['Prix minimum'],
+          autoscoutMinPrice: autoscoutMinPrice,
           calculatedPrice: item['prix min divisé par 1,25'],
           calculatedMargin: item.Marge,
           status: item.Statut,
