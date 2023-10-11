@@ -4,7 +4,7 @@ import { Document } from 'mongoose';
 @Schema({ timestamps: true })
 export class Car {
   @Prop({ type: String, default: '' })
-  offer: string;
+  carId: string;
 
   @Prop({ type: String, default: '' })
   brand: string;

@@ -43,11 +43,11 @@ export class CarsService {
         console.log(item);
 
         return {
-          offer: item.Offre,
+          carId: item.Offre,
           brand: item.Marque,
           model: item.Modèle,
           carBody: item.Carrosserie,
-          doorsNumber: item['Nombre de portes'],
+          doorsNumber: item['Nombre de portes'].trim(),
           version: item.Version,
           registration: item.Immatriculation,
           fuelType: item.Carburant,
@@ -72,7 +72,7 @@ export class CarsService {
     }
   }
 
-  async findAll(): Promise<CreateCarDto[]> {
+  async getCars(): Promise<any> {
     try {
       const cars = await this.carModel.find();
       return cars;
@@ -81,9 +81,9 @@ export class CarsService {
     }
   }
 
-  async findOne(id): Promise<CreateCarDto> {
+  async getCar(carId): Promise<any> {
     try {
-      const car = await this.carModel.findById({ _id: id });
+      const car = await this.carModel.findOne({ carId: carId });
       return car;
     } catch (error) {}
   }

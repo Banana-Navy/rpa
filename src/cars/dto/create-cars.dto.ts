@@ -1,6 +1,6 @@
 export class CreateCarDto {
   _id?: string;
-  offer: string;
+  carId: string;
   brand: string;
   model: string;
   carBody: string;

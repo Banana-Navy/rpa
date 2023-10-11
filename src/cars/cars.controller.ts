@@ -28,18 +28,18 @@ export class CarsController {
   }
 
   @Get()
-  async findAll(): Promise<CreateCarDto[]> {
+  async getCars(): Promise<CreateCarDto[]> {
     try {
-      return await this.carsService.findAll();
+      return await this.carsService.getCars();
     } catch (error) {
       return error;
     }
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string): Promise<CreateCarDto> {
+  @Get(':carId')
+  getCar(@Param('carId') carId: string): Promise<CreateCarDto> {
     try {
-      return this.carsService.findOne(id);
+      return this.carsService.getCar(carId);
     } catch (error) {
       return error;
     }
