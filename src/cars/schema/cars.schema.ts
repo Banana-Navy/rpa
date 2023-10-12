@@ -43,11 +43,14 @@ export class Car {
   autoscoutMinPrice: number;
 
   // prix divsé par 1.25 ou 1.6
-  @Prop({ type: Number, default: '' })
-  calculatedPrice: number;
+  @Prop({ type: String, default: '' })
+  calculatedPrice: string;
 
-  @Prop({ type: Number, default: '' })
-  calculatedMargin: number;
+  @Prop({ type: String, default: '' })
+  avgPrice: string;
+
+  @Prop({ type: String, default: '' })
+  calculatedMargin: string;
 
   @Prop({ type: String, default: '' })
   status: string;

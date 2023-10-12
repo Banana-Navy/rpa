@@ -32,41 +32,46 @@ export class CarsService {
         'Kilométrage estimé': string;
         'Modèle Choisi': string;
         'Prix minimum': string;
-        'prix min divisé par 1,25': number;
-        Marge: number;
+        'prix min divisé par 1,25': string;
+        avgPrice: string;
+        Marge: string;
         Statut: string;
         Message: string;
         Valider: number;
       }
 
-      data = data.map((item: ExcelCarData) => {
-        const autoscoutMinPrice = item['Prix minimum']
-          ? parseInt(item['Prix minimum'].replace('.', ''), 10)
-          : null;
-        return {
-          carId: item.Offre,
-          brand: item.Marque,
-          model: item.Modèle,
-          carBody: item.Carrosserie,
-          doorsNumber: item['Nombre de portes'].trim(),
-          version: item.Version,
-          registration: item.Immatriculation,
-          fuelType: item.Carburant,
-          power: item.Puissance,
-          transmission: item.Transmission,
-          kmEstimated: item['Kilométrage estimé'],
-          autoscoutModel: item['Modèle Choisi'],
-          autoscoutMinPrice: autoscoutMinPrice,
-          calculatedPrice: item['prix min divisé par 1,25'],
-          calculatedMargin: item.Marge,
-          status: item.Statut,
-          message: item.Message,
-          validation: item.Valider,
-        };
-      });
+      data = data.map(async (item: ExcelCarData) => {
+        const carId = item.Offre;
+        const existingCar = await this.carModel.findOne({ carId });
 
-      const savedData = await this.carModel.create(data);
-      return savedData;
+        if (!existingCar) {
+          const autoscoutMinPrice = item['Prix minimum']
+            ? parseInt(item['Prix minimum'].replace('.', ''), 10)
+            : null;
+          const carData = {
+            carId,
+            brand: item.Marque,
+            model: item.Modèle,
+            carBody: item.Carrosserie,
+            doorsNumber: item['Nombre de portes'].trim(),
+            version: item.Version,
+            registration: item.Immatriculation,
+            fuelType: item.Carburant,
+            power: item.Puissance,
+            transmission: item.Transmission,
+            kmEstimated: item['Kilométrage estimé'],
+            autoscoutModel: item['Modèle Choisi'],
+            autoscoutMinPrice: autoscoutMinPrice,
+            calculatedPrice: item['prix min divisé par 1,25'],
+            avgPrice: item['Prix moyen'],
+            calculatedMargin: item.Marge,
+            status: item.Statut,
+            message: item.Message,
+            validation: item.Valider,
+          };
+          await this.carModel.create(carData);
+        }
+      });
     } catch (error) {
       console.error(error);
       return `error in service ${error}`;

@@ -13,8 +13,9 @@ export class CreateCarDto {
   kmEstimated: string;
   autoscoutModel: string;
   autoscoutMinPrice: number;
-  calculatedPrice: number;
-  calculatedMargin: number;
+  calculatedPrice: string;
+  avgPrice: string;
+  calculatedMargin: string;
   status: string;
   message: string;
   validation: number;

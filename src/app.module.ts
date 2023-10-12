@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { CarsModule } from './cars/cars.module';
 import { ConfigModule } from '@nestjs/config';
+import { InitDataModule } from './init-data/init-data.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ConfigModule } from '@nestjs/config';
     UsersModule,
     AuthModule,
     CarsModule,
+    InitDataModule,
   ],
 
   controllers: [AppController],
