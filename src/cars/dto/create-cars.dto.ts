@@ -14,9 +14,8 @@ export class CreateCarDto {
   autoscoutModel: string;
   autoscoutMinPrice: number;
   calculatedPrice: string;
-  avgPrice: string;
+  avgPrice: number;
   calculatedMargin: string;
   status: string;
-  message: string;
   validation: number;
 }

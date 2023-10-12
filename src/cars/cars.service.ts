@@ -48,6 +48,9 @@ export class CarsService {
           const autoscoutMinPrice = item['Prix minimum']
             ? parseInt(item['Prix minimum'].replace('.', ''), 10)
             : null;
+          const prixMoyen = item['Prix moyen']
+            ? parseFloat(item['Prix moyen']).toFixed(2) // Round to two decimal places
+            : null;
           const carData = {
             carId,
             brand: item.Marque,
@@ -62,11 +65,10 @@ export class CarsService {
             kmEstimated: item['Kilométrage estimé'],
             autoscoutModel: item['Modèle Choisi'],
             autoscoutMinPrice: autoscoutMinPrice,
-            calculatedPrice: item['prix min divisé par 1,25'],
-            avgPrice: item['Prix moyen'],
+            calculatedPrice: item['Prix minimum divisé'],
+            avgPrice: prixMoyen,
             calculatedMargin: item.Marge,
             status: item.Statut,
-            message: item.Message,
             validation: item.Valider,
           };
           await this.carModel.create(carData);

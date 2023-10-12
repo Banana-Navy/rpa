@@ -46,17 +46,14 @@ export class Car {
   @Prop({ type: String, default: '' })
   calculatedPrice: string;
 
-  @Prop({ type: String, default: '' })
-  avgPrice: string;
+  @Prop({ type: Number, default: '' })
+  avgPrice: number;
 
   @Prop({ type: String, default: '' })
   calculatedMargin: string;
 
   @Prop({ type: String, default: '' })
   status: string;
-
-  @Prop({ type: String, default: '' })
-  message: string;
 
   @Prop({ type: Number, default: '' })
   validation: number;
