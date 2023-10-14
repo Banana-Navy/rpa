@@ -1,3 +1,5 @@
+import { initData } from 'src/init-data/schema/init-data.schema';
+
 export class CreateCarDto {
   _id?: string;
   carId: string;
@@ -18,4 +20,5 @@ export class CreateCarDto {
   calculatedMargin: string;
   status: string;
   validation: number;
+  initData: Array<initData>;
 }

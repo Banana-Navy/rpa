@@ -3,7 +3,7 @@ import {
   Get,
   Post,
   Body,
-  Patch,
+  Put,
   Param,
   Delete,
   UseInterceptors,
@@ -29,6 +29,23 @@ export class InitDataController {
   getRatio() {
     try {
       return this.initDataService.getRatio();
+    } catch (error) {
+      return error;
+    }
+  }
+  @Get('')
+  getData() {
+    try {
+      return this.initDataService.getData();
+    } catch (error) {
+      return error;
+    }
+  }
+
+  @Put('')
+  async updateData(@Body() data) {
+    try {
+      return this.initDataService.updateData(data);
     } catch (error) {
       return error;
     }

@@ -1,9 +1,12 @@
+import mongoose from 'mongoose';
+
 export class CreateInitDatumDto {
-  address: string;
+  userId: mongoose.Types.ObjectId[];
+  email: string;
   password: string;
-  carsNumber: number;
+  carsCount: number;
   maxKilometers: string;
   maxAvailability: string;
   year: string;
-  TTC: string;
+  ratio: string;
 }

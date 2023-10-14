@@ -16,8 +16,6 @@ export class InitDataService {
     try {
       const workbook = XLSX.read(file.buffer, { type: 'buffer' });
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-
-      // Define the expected data structure
       interface ExcelData {
         key: string;
         value: any;
@@ -27,7 +25,6 @@ export class InitDataService {
         header: ['key', 'value'],
       });
 
-      // Create an empty object to store the transformed data
       const myData = {};
 
       for (const item of data) {
@@ -35,13 +32,13 @@ export class InitDataService {
       }
 
       const initData = {
-        address: myData['Adresse'] || '',
+        email: myData['Adresse'] || '',
         password: myData['Mot de passe'] || '',
-        carsNumber: myData['Nombre du voiture'] || 0,
+        carsCount: myData['Nombre du voiture'] || 0,
         maxKilometers: myData['Kilométrage (max)'] || '',
         maxAvailability: myData['Disponibilité maximale'] || '',
         year: myData['Année (min)'] || '',
-        TTC: myData['TTC'] || '',
+        ratio: myData['TTC'] || '',
       };
       await this.initdataModel.create(initData);
     } catch (error) {
@@ -53,9 +50,28 @@ export class InitDataService {
   async getRatio() {
     try {
       const data = await this.initdataModel.find();
-      return data[0].TTC;
+      return data[0].ratio;
     } catch (error) {
       return;
+    }
+  }
+
+  async getData() {
+    try {
+      const data = await this.initdataModel.find();
+      return data;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async updateData(data) {
+    try {
+      const userId = data.userId;
+      delete data.userId;
+      await this.initdataModel.updateOne({ userId: userId }, { $set: data });
+    } catch (error) {
+      return error;
     }
   }
 }

@@ -1,5 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import {
+  initData,
+  initDataDocument,
+} from 'src/init-data/schema/init-data.schema';
 
 @Schema({ timestamps: true })
 export class Car {
@@ -57,6 +61,9 @@ export class Car {
 
   @Prop({ type: Number, default: '' })
   validation: number;
+
+  @Prop({ type: Array })
+  initData: Array<initData>;
 }
 
 export type CarDocument = Car & Document;

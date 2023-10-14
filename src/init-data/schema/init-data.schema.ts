@@ -1,16 +1,19 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
 @Schema({ timestamps: true })
 export class initData {
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
+  userId: mongoose.Types.ObjectId[];
+
   @Prop({ type: String, default: '' })
-  address: string;
+  email: string;
 
   @Prop({ type: String, default: '' })
   password: string;
 
   @Prop({ type: Number, default: '' })
-  carsNumber: number;
+  carsCount: number;
 
   @Prop({ type: String, default: '' })
   maxKilometers: string;
@@ -22,7 +25,7 @@ export class initData {
   year: string;
 
   @Prop({ type: String, default: '' })
-  TTC: string;
+  ratio: string;
 }
 
 export type initDataDocument = initData & Document;

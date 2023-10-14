@@ -4,12 +4,18 @@ import { CarDocument } from './schema/cars.schema';
 import { Model } from 'mongoose';
 import * as XLSX from 'xlsx';
 import { CreateCarDto } from './dto/create-cars.dto';
+import {
+  initData,
+  initDataDocument,
+} from 'src/init-data/schema/init-data.schema';
 
 @Injectable()
 export class CarsService {
   constructor(
     @InjectModel('Car')
     private readonly carModel: Model<CarDocument>,
+    @InjectModel('initData')
+    private readonly initdataModel: Model<initDataDocument>,
   ) {}
 
   async create(file) {
@@ -38,42 +44,56 @@ export class CarsService {
         Statut: string;
         Message: string;
         Valider: number;
+        initData: Array<initData>;
       }
 
-      data = data.map(async (item: ExcelCarData) => {
-        const carId = item.Offre;
-        const existingCar = await this.carModel.findOne({ carId });
-
-        if (!existingCar) {
-          const autoscoutMinPrice = item['Prix minimum']
-            ? parseInt(item['Prix minimum'].replace('.', ''), 10)
+      for (const item of data) {
+        const carId = item['Offre'];
+        const existingCar = await this.carModel.find({ carId: carId });
+        const prixMinimum = item['Prix minimum'];
+        const autoscoutMinPrice =
+          typeof prixMinimum === 'string'
+            ? parseInt(prixMinimum.replace('.', ''), 10)
             : null;
-          const prixMoyen = item['Prix moyen']
-            ? parseFloat(item['Prix moyen']).toFixed(2) // Round to two decimal places
-            : null;
-          const carData = {
-            carId,
-            brand: item.Marque,
-            model: item.Modèle,
-            carBody: item.Carrosserie,
-            doorsNumber: item['Nombre de portes'].trim(),
-            version: item.Version,
-            registration: item.Immatriculation,
-            fuelType: item.Carburant,
-            power: item.Puissance,
-            transmission: item.Transmission,
-            kmEstimated: item['Kilométrage estimé'],
-            autoscoutModel: item['Modèle Choisi'],
-            autoscoutMinPrice: autoscoutMinPrice,
-            calculatedPrice: item['Prix minimum divisé'],
-            avgPrice: prixMoyen,
-            calculatedMargin: item.Marge,
-            status: item.Statut,
-            validation: item.Valider,
-          };
-          await this.carModel.create(carData);
+        const prixMoyen = item['Prix moyen']
+          ? parseFloat(item['Prix moyen']).toFixed(2)
+          : null;
+        const carData = {
+          carId,
+          brand: item['Marque'],
+          model: item['Modèle'],
+          carBody: item['Carrosserie'],
+          doorsNumber: item['Nombre de portes'].trim(),
+          version: item['Version'],
+          registration: item['Immatriculation'],
+          fuelType: item['Carburant'],
+          power: item['Puissance'],
+          transmission: item['Transmission'],
+          kmEstimated: item['Kilométrage estimé'],
+          autoscoutModel: item['Modèle Choisi'],
+          autoscoutMinPrice: autoscoutMinPrice,
+          calculatedPrice: item['Prix minimum divisé'],
+          avgPrice: prixMoyen,
+          calculatedMargin: item['Marge'],
+          status: item['Statut'],
+          validation: item['Valider'],
+          initData: null,
+        };
+        const initData = await this.initdataModel
+          .findOne()
+          .select('-_id -createdAt -updatedAt -__v -adresse -password')
+          .lean()
+          .exec();
+        if (initData) {
+          carData.initData = initData;
         }
-      });
+
+        if (existingCar.length == 0) {
+          await this.carModel.create(carData);
+        } else {
+          await this.carModel.updateOne({ carId: carId }, { $set: carData });
+        }
+      }
     } catch (error) {
       console.error(error);
       return `error in service ${error}`;
