@@ -3,6 +3,10 @@ import mongoose from 'mongoose';
 
 export class InitDataDto {
   @ApiProperty()
+  email: string;
+  @ApiProperty()
+  password: string;
+  @ApiProperty()
   carsCount: number;
   @ApiProperty()
   maxKilometers: string;
