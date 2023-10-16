@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateInitDatumDto } from './dto/create-init-datum.dto';
 import { UpdateInitDatumDto } from './dto/update-init-datum.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import * as XLSX from 'xlsx';
@@ -67,7 +66,7 @@ export class InitDataService {
 
   async updateData(data) {
     try {
-      const userId = data.userId;
+      const userId = '65195cde8aebd78605140087';
       delete data.userId;
       await this.initdataModel.updateOne({ userId: userId }, { $set: data });
     } catch (error) {

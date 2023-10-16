@@ -1,4 +1,4 @@
 import { PartialType } from '@nestjs/swagger';
-import { CreateInitDatumDto } from './create-init-datum.dto';
+import { InitDataDto } from './create-init-datum.dto';
 
-export class UpdateInitDatumDto extends PartialType(CreateInitDatumDto) {}
+export class UpdateInitDatumDto extends PartialType(InitDataDto) {}

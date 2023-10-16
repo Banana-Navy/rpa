@@ -3,11 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { CarDocument } from './schema/cars.schema';
 import { Model } from 'mongoose';
 import * as XLSX from 'xlsx';
-import { CreateCarDto } from './dto/create-cars.dto';
-import {
-  initData,
-  initDataDocument,
-} from 'src/init-data/schema/init-data.schema';
+import { initDataDocument } from 'src/init-data/schema/init-data.schema';
 
 @Injectable()
 export class CarsService {
@@ -20,6 +16,8 @@ export class CarsService {
 
   async create(file) {
     try {
+      const userId = '65195cde8aebd78605140087';
+
       const workbook = XLSX.read(file.buffer, { type: 'buffer' });
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
       let data = XLSX.utils.sheet_to_json(worksheet);
@@ -44,7 +42,7 @@ export class CarsService {
         Statut: string;
         Message: string;
         Valider: number;
-        initData: Array<initData>;
+        initData: string;
       }
 
       for (const item of data) {
@@ -79,13 +77,10 @@ export class CarsService {
           validation: item['Valider'],
           initData: null,
         };
-        const initData = await this.initdataModel
-          .findOne()
-          .select('-_id -createdAt -updatedAt -__v -adresse -password')
-          .lean()
-          .exec();
+        const initData = await this.initdataModel.find({ userId: userId });
+
         if (initData) {
-          carData.initData = initData;
+          carData.initData = initData[0]._id;
         }
 
         if (existingCar.length == 0) {
@@ -102,7 +97,7 @@ export class CarsService {
 
   async getCars(): Promise<any> {
     try {
-      const cars = await this.carModel.find();
+      const cars = await this.carModel.find().populate('init-data');
       return cars;
     } catch (error) {
       return error;
@@ -111,7 +106,9 @@ export class CarsService {
 
   async getCar(carId): Promise<any> {
     try {
-      const car = await this.carModel.findOne({ carId: carId });
+      const car = await this.carModel
+        .findOne({ carId: carId })
+        .populate('init-data');
       return car;
     } catch (error) {}
   }

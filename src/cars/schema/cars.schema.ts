@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 import {
   initData,
   initDataDocument,
@@ -62,8 +62,8 @@ export class Car {
   @Prop({ type: Number, default: '' })
   validation: number;
 
-  @Prop({ type: Array })
-  initData: Array<initData>;
+  @Prop({ type: mongoose.Types.ObjectId, ref: 'init-data' })
+  initData: mongoose.Types.ObjectId;
 }
 
 export type CarDocument = Car & Document;
