@@ -62,7 +62,7 @@ export class Car {
   @Prop({ type: Number, default: '' })
   validation: number;
 
-  @Prop({ type: mongoose.Types.ObjectId, ref: 'init-data' })
+  @Prop({ type: mongoose.Types.ObjectId, ref: 'initData' })
   initData: mongoose.Types.ObjectId;
 }
 

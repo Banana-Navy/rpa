@@ -97,7 +97,7 @@ export class CarsService {
 
   async getCars(): Promise<any> {
     try {
-      const cars = await this.carModel.find().populate('init-data');
+      const cars = await this.carModel.find().populate('initData');
       return cars;
     } catch (error) {
       return error;
@@ -108,7 +108,7 @@ export class CarsService {
     try {
       const car = await this.carModel
         .findOne({ carId: carId })
-        .populate('init-data');
+        .populate('initData');
       return car;
     } catch (error) {}
   }
