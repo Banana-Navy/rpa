@@ -95,6 +95,35 @@ export class CarsService {
     }
   }
 
+  async addOneCar(data) {
+    try {
+      const response = await this.carModel.create({
+        carId: data.Offre,
+        brand: data.Marque,
+        model: data['Modèle'],
+        carBody: data['Carrosserie'],
+        doorsNumber: data['Nombre de portes'],
+        version: data.Version,
+        registration: data.Immatriculation,
+        fuelType: data.Carburant,
+        power: data.Puissance,
+        transmission: data.Transmission,
+        kmEstimated: data['Kilométrage estimé'],
+        autoscoutModel: data['Modèle choisi'],
+        autoscoutMinPrice: data['Prix minimum'],
+        calculatedPrice: data['Prix minimum divisé'],
+        avgPrice: data['Prix moyen'],
+        calculatedMargin: data['Marge'],
+        status: data['Statut'],
+        validation: data['Valider'],
+        initData: null,
+      });
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
+
   async getCars(): Promise<any> {
     try {
       const cars = await this.carModel.find().populate('initData');

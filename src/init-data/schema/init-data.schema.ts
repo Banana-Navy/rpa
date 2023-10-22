@@ -4,7 +4,7 @@ import mongoose, { Document } from 'mongoose';
 @Schema({ timestamps: true })
 export class initData {
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
-  userId: mongoose.Types.ObjectId[];
+  userId: mongoose.Types.ObjectId;
 
   @Prop({ type: String, default: '' })
   email: string;

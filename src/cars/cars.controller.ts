@@ -5,10 +5,11 @@ import {
   Param,
   UseInterceptors,
   UploadedFile,
+  Body,
 } from '@nestjs/common';
 import { CarsService } from './cars.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CarDto } from './dto/create-cars.dto';
 
 @ApiTags('cars')
@@ -30,6 +31,19 @@ export class CarsController {
     } catch (error) {
       console.error(error);
       return `error in controller ${error}`;
+    }
+  }
+
+  @Post('/addOneCar')
+  @ApiOperation({
+    description: 'add one car',
+  })
+  async addOneCar(@Body() data) {
+    try {
+      const response = await this.carsService.addOneCar(data);
+      return response;
+    } catch (error) {
+      return error;
     }
   }
 
