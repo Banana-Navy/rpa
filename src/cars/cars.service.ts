@@ -150,7 +150,7 @@ export class CarsService {
               power: data.Puissance,
               transmission: data.Transmission,
               kmEstimated: data['Kilométrage estimé'],
-              autoscoutModel: data['Modèle choisi'],
+              autoscoutModel: data['Modele Choisi'],
               autoscoutMinPrice: data['Prix minimum'],
               calculatedPrice: data['Prix minimum divisé'],
               avgPrice: data['Prix moyen'],
