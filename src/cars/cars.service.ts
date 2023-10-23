@@ -170,6 +170,7 @@ export class CarsService {
   async getCars(): Promise<any> {
     try {
       const cars = await this.carModel.find({ status: { $ne: "Failed" } }).populate('initData');
+      console.log(cars.length);
       return cars;
     } catch (error) {
       return error;
