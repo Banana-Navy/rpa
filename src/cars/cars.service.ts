@@ -98,30 +98,70 @@ export class CarsService {
   async addOneCar(data) {
     try {
       const userId = '65195cde8aebd78605140087';
+
       const initData = await this.initdataModel.find({ userId: userId });
 
-      const response = await this.carModel.create({
-        carId: data.Offre,
-        brand: data.Marque,
-        model: data['Modèle'],
-        carBody: data['Carrosserie'],
-        doorsNumber: data['Nombre de portes'],
-        version: data.Version,
-        registration: data.Immatriculation,
-        fuelType: data.Carburant,
-        power: data.Puissance,
-        transmission: data.Transmission,
-        kmEstimated: data['Kilométrage estimé'],
-        autoscoutModel: data['Modèle choisi'],
-        autoscoutMinPrice: data['Prix minimum'],
-        calculatedPrice: data['Prix minimum divisé'],
-        avgPrice: data['Prix moyen'],
-        calculatedMargin: data['Marge'],
-        status: data['Statut'],
-        validation: data['Valider'],
-        initData: initData[0]._id,
-      });
-      return response;
+      const existingCar = await this.carModel.find({ carId: data.Offre });
+
+      const prixMinimum = data['Prix minimum'];
+      const autoscoutMinPrice =
+        typeof prixMinimum === 'string'
+          ? parseInt(prixMinimum.replace('.', ''), 10)
+          : null;
+      const prixMoyen = data['Prix moyen']
+        ? parseFloat(data['Prix moyen']).toFixed(2)
+        : null;
+
+      if (existingCar.length == 0) {
+        await this.carModel.create({
+          carId: data.Offre,
+          brand: data.Marque,
+          model: data['Modèle'],
+          carBody: data['Carrosserie'],
+          doorsNumber: data['Nombre de portes'],
+          version: data.Version,
+          registration: data.Immatriculation,
+          fuelType: data.Carburant,
+          power: data.Puissance,
+          transmission: data.Transmission,
+          kmEstimated: data['Kilométrage estimé'],
+          autoscoutModel: data['Modèle choisi'],
+          autoscoutMinPrice: autoscoutMinPrice,
+          calculatedPrice: data['Prix minimum divisé'],
+          avgPrice: prixMoyen,
+          calculatedMargin: data['Marge'],
+          status: data['Statut'],
+          validation: data['Valider'],
+          initData: initData[0]._id,
+        });
+      } else {
+        await this.carModel.updateOne(
+          { carId: data.Offre },
+          {
+            $set: {
+              carId: data.Offre,
+              brand: data.Marque,
+              model: data['Modèle'],
+              carBody: data['Carrosserie'],
+              doorsNumber: data['Nombre de portes'],
+              version: data.Version,
+              registration: data.Immatriculation,
+              fuelType: data.Carburant,
+              power: data.Puissance,
+              transmission: data.Transmission,
+              kmEstimated: data['Kilométrage estimé'],
+              autoscoutModel: data['Modèle choisi'],
+              autoscoutMinPrice: data['Prix minimum'],
+              calculatedPrice: data['Prix minimum divisé'],
+              avgPrice: data['Prix moyen'],
+              calculatedMargin: data['Marge'],
+              status: data['Statut'],
+              validation: data['Valider'],
+              initData: initData[0]._id,
+            },
+          },
+        );
+      }
     } catch (error) {
       return error;
     }
