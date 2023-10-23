@@ -113,7 +113,7 @@ export class CarsService {
         : null;
 
       if (existingCar.length == 0) {
-        await this.carModel.create({
+        const res = await this.carModel.create({
           carId: data.Offre,
           brand: data.Marque,
           model: data['Modèle'],
@@ -125,7 +125,7 @@ export class CarsService {
           power: data.Puissance,
           transmission: data.Transmission,
           kmEstimated: data['Kilométrage estimé'],
-          autoscoutModel: data['Modèle choisi'],
+          autoscoutModel: data['Modele Choisi'],
           autoscoutMinPrice: autoscoutMinPrice,
           calculatedPrice: data['Prix minimum divisé'],
           avgPrice: prixMoyen,
@@ -135,7 +135,7 @@ export class CarsService {
           initData: initData[0]._id,
         });
       } else {
-        await this.carModel.updateOne(
+        const res = await this.carModel.updateOne(
           { carId: data.Offre },
           {
             $set: {
