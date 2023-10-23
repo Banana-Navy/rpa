@@ -97,6 +97,9 @@ export class CarsService {
 
   async addOneCar(data) {
     try {
+      const userId = '65195cde8aebd78605140087';
+      const initData = await this.initdataModel.find({ userId: userId });
+
       const response = await this.carModel.create({
         carId: data.Offre,
         brand: data.Marque,
@@ -116,7 +119,7 @@ export class CarsService {
         calculatedMargin: data['Marge'],
         status: data['Statut'],
         validation: data['Valider'],
-        initData: null,
+        initData: initData[0]._id,
       });
       return response;
     } catch (error) {
