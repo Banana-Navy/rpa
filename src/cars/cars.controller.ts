@@ -6,10 +6,17 @@ import {
   UseInterceptors,
   UploadedFile,
   Body,
+  Query,
 } from '@nestjs/common';
 import { CarsService } from './cars.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiOperation,
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CarDto } from './dto/create-cars.dto';
 
 @ApiTags('cars')
@@ -48,9 +55,16 @@ export class CarsController {
   }
 
   @Get()
-  async getCars(): Promise<CarDto[]> {
+  @ApiQuery({
+    name: 'weeks',
+    required: false,
+    type: Number,
+    description: 'Number of weeks',
+  })
+  @ApiResponse({ status: 200, type: CarDto, isArray: true })
+  async getCars(@Query('weeks') weeks: number): Promise<CarDto[]> {
     try {
-      return await this.carsService.getCars();
+      return await this.carsService.getCars(weeks);
     } catch (error) {
       return error;
     }

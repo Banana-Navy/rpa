@@ -167,10 +167,20 @@ export class CarsService {
     }
   }
 
-  async getCars(): Promise<any> {
+  async getCars(weeks = 1): Promise<any> {
     try {
-      const cars = await this.carModel.find({ status: { $ne: "Failed" } }).populate('initData');
-      console.log(cars.length);
+      const currentDate = new Date();
+      const startDate = new Date(currentDate);
+      startDate.setDate(startDate.getDate() - weeks * 7);
+
+      const cars = await this.carModel
+        .find({
+          status: { $ne: 'Failed' },
+          createdAt: { $gte: startDate, $lte: currentDate },
+        })
+        .sort({ createdAt: -1 })
+        .populate('initData');
+
       return cars;
     } catch (error) {
       return error;
