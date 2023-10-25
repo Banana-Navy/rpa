@@ -37,6 +37,8 @@ export class CarDto {
   @ApiProperty()
   status: string;
   @ApiProperty()
+  message: string;
+  @ApiProperty()
   validation: number;
   @ApiProperty()
   initData: string;

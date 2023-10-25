@@ -59,6 +59,9 @@ export class Car {
   @Prop({ type: String, default: '' })
   status: string;
 
+  @Prop({ type: String, default: '' })
+  message: string;
+
   @Prop({ type: Number, default: '' })
   validation: number;
 

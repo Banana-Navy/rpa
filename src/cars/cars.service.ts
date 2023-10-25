@@ -74,6 +74,7 @@ export class CarsService {
           avgPrice: prixMoyen,
           calculatedMargin: item['Marge'],
           status: item['Statut'],
+          message: item['Message'],
           validation: item['Valider'],
           initData: null,
         };
@@ -131,6 +132,7 @@ export class CarsService {
           avgPrice: prixMoyen,
           calculatedMargin: data['Marge'],
           status: data['Statut'],
+          message: data['Message'],
           validation: data['Valider'],
           initData: initData[0]._id,
         });
@@ -156,6 +158,7 @@ export class CarsService {
               avgPrice: data['Prix moyen'],
               calculatedMargin: data['Marge'],
               status: data['Statut'],
+              message: data['Message'],
               validation: data['Valider'],
               initData: initData[0]._id,
             },
