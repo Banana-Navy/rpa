@@ -178,7 +178,6 @@ export class CarsService {
 
       const cars = await this.carModel
         .find({
-          status: { $ne: 'Failed' },
           createdAt: { $gte: startDate, $lte: currentDate },
         })
         .sort({ createdAt: -1 })
