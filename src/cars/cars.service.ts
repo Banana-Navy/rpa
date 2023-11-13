@@ -49,13 +49,21 @@ export class CarsService {
         const carId = item['Offre'];
         const existingCar = await this.carModel.find({ carId: carId });
         const prixMinimum = item['Prix minimum'];
-        const autoscoutMinPrice =
+
+        const cleanedPrixMinimum =
           typeof prixMinimum === 'string'
-            ? parseInt(prixMinimum.replace('.', ''), 10)
-            : null;
+            ? prixMinimum.replace(/[^0-9]/g, '')
+            : prixMinimum;
+
+        const autoscoutMinPrice =
+          typeof cleanedPrixMinimum === 'string'
+            ? parseInt(cleanedPrixMinimum, 10)
+            : cleanedPrixMinimum;
+
         const prixMoyen = item['Prix moyen']
           ? parseFloat(item['Prix moyen']).toFixed(2)
           : null;
+
         const carData = {
           carId,
           brand: item['Marque'],
@@ -78,6 +86,7 @@ export class CarsService {
           validation: item['Valider'],
           initData: null,
         };
+
         const initData = await this.initdataModel.find({ userId: userId });
 
         if (initData) {
@@ -105,10 +114,17 @@ export class CarsService {
       const existingCar = await this.carModel.find({ carId: data.Offre });
 
       const prixMinimum = data['Prix minimum'];
-      const autoscoutMinPrice =
+
+      const cleanedPrixMinimum =
         typeof prixMinimum === 'string'
-          ? parseInt(prixMinimum.replace('.', ''), 10)
-          : null;
+          ? prixMinimum.replace(/[^0-9]/g, '')
+          : prixMinimum;
+
+      const autoscoutMinPrice =
+        typeof cleanedPrixMinimum === 'string'
+          ? parseInt(cleanedPrixMinimum, 10)
+          : cleanedPrixMinimum;
+
       const prixMoyen = data['Prix moyen']
         ? parseFloat(data['Prix moyen']).toFixed(2)
         : null;
@@ -153,7 +169,7 @@ export class CarsService {
               transmission: data.Transmission,
               kmEstimated: data['Kilométrage estimé'],
               autoscoutModel: data['Modele Choisi'],
-              autoscoutMinPrice: data['Prix minimum'],
+              autoscoutMinPrice: autoscoutMinPrice,
               calculatedPrice: data['Prix minimum divisé'],
               avgPrice: data['Prix moyen'],
               calculatedMargin: data['Marge'],
