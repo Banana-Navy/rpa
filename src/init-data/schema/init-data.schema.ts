@@ -26,6 +26,9 @@ export class initData {
 
   @Prop({ type: String, default: '' })
   ratio: string;
+
+  @Prop({ type: Number, default: 0 })
+  nomberOfRequest: number;
 }
 
 export type initDataDocument = initData & Document;

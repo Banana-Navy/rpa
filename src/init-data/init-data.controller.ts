@@ -22,7 +22,7 @@ export class InitDataController {
   @Post('')
   @ApiOperation({
     description:
-      'Create a document in the MongoDB "init-data" collection by uploading an Excel file',
+      'create a document in the MongoDB "init-data" collection by uploading an Excel file',
   })
   @UseInterceptors(FileInterceptor('file'))
   create(@UploadedFile() file) {
