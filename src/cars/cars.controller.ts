@@ -73,8 +73,6 @@ export class CarsController {
   @Get(':carId')
   getCar(@Param('carId') carId: string): Promise<CarDto> {
     try {
-      console.log(carId);
-
       return this.carsService.getCar(carId);
     } catch (error) {
       return error;

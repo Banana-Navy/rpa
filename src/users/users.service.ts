@@ -13,7 +13,6 @@ export class UsersService {
   async create(data) {
     try {
       const response = await this.userModel.create(data);
-      console.log(data);
       return response;
     } catch (error) {
       console.error('Error while creating user:', error);
