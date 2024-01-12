@@ -8,7 +8,7 @@ import {
 @Schema({ timestamps: true })
 export class Car {
   @Prop({ type: String, default: '' })
-  carId: string;
+  carId: string; // no
 
   @Prop({ type: String, default: '' })
   brand: string;
@@ -41,20 +41,20 @@ export class Car {
   kmEstimated: string;
 
   @Prop({ type: String, default: '' })
-  autoscoutModel: string;
+  autoscoutModel: string; // no
 
   @Prop({ type: Number, default: '' })
-  autoscoutMinPrice: number;
+  autoscoutMinPrice: number; // no
 
   // prix divsé par 1.25 ou 1.6
   @Prop({ type: String, default: '' })
-  calculatedPrice: string;
+  calculatedPrice: string; // no
 
   @Prop({ type: Number, default: '' })
   avgPrice: number;
 
   @Prop({ type: String, default: '' })
-  calculatedMargin: string;
+  calculatedMargin: string; // no
 
   @Prop({ type: String, default: '' })
   status: string;
@@ -66,7 +66,7 @@ export class Car {
   validation: number;
 
   @Prop({ type: mongoose.Types.ObjectId, ref: 'initData' })
-  initData: mongoose.Types.ObjectId;
+  initData: mongoose.Types.ObjectId; // no
 }
 
 export type CarDocument = Car & Document;

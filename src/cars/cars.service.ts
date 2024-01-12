@@ -205,6 +205,21 @@ export class CarsService {
     }
   }
 
+  async getTodayCars(): Promise<any> {
+    try {
+      const todayDate = new Date();
+      const todayCars = await this.carModel.find({
+        createdAt: {
+          $gte: new Date(todayDate.setHours(0, 0, 0, 0)),
+          $lt: new Date(todayDate.setHours(23, 59, 59, 999)),
+        },
+      });
+      return todayCars;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async getCar(carId): Promise<any> {
     try {
       const car = await this.carModel

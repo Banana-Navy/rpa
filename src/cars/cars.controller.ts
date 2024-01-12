@@ -70,6 +70,21 @@ export class CarsController {
     }
   }
 
+  @Get('/today')
+  @ApiQuery({
+    name: 'day',
+    required: false,
+    type: Number,
+  })
+  @ApiResponse({ status: 200, type: CarDto, isArray: true })
+  async getTodayCars(): Promise<CarDto[]> {
+    try {
+      return await this.carsService.getTodayCars();
+    } catch (error) {
+      return error;
+    }
+  }
+
   @Get(':carId')
   getCar(@Param('carId') carId: string): Promise<CarDto> {
     try {
