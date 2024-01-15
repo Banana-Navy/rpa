@@ -38,6 +38,11 @@ export class CarsService {
         'Prix minimum': string;
         'prix min divisé par 1,25': string;
         avgPrice: string;
+        Interieur: string;
+        Proprietaires: string;
+        'Numero de chassi': string;
+        'Nombre de cles': string;
+        Couleur: string;
         Marge: string;
         Statut: string;
         Message: string;
@@ -81,6 +86,11 @@ export class CarsService {
           calculatedPrice: item['Prix minimum divisé'],
           avgPrice: prixMoyen,
           calculatedMargin: item['Marge'],
+          interior: data['Interieur'],
+          chassiNumber: data['Numero de chassi'],
+          keyNumber: data['Nombre de cles'],
+          owners: data['Proprietaires'],
+          color: data['Couleur'],
           status: item['Statut'],
           message: item['Message'],
           validation: item['Valider'],
@@ -147,6 +157,11 @@ export class CarsService {
           calculatedPrice: data['Prix minimum divisé'],
           avgPrice: prixMoyen,
           calculatedMargin: data['Marge'],
+          interior: data['Interieur'],
+          chassiNumber: data['Numero de chassi'],
+          keyNumber: data['Nombre de cles'],
+          owners: data['Proprietaires'],
+          color: data['Couleur'],
           status: data['Statut'],
           message: data['Message'],
           validation: data['Valider'],
@@ -173,6 +188,11 @@ export class CarsService {
               calculatedPrice: data['Prix minimum divisé'],
               avgPrice: data['Prix moyen'],
               calculatedMargin: data['Marge'],
+              interior: data['Interieur'],
+              chassiNumber: data['Numero de chassi'],
+              keyNumber: data['Nombre de cles'],
+              owners: data['Proprietaires'],
+              color: data['Couleur'],
               status: data['Statut'],
               message: data['Message'],
               validation: data['Valider'],

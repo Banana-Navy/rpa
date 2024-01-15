@@ -57,6 +57,21 @@ export class Car {
   calculatedMargin: string; // no
 
   @Prop({ type: String, default: '' })
+  color: string; // no
+
+  @Prop({ type: String, default: '' })
+  keyNumber: string;
+
+  @Prop({ type: String, default: '' })
+  chassiNumber: string; // no
+
+  @Prop({ type: String, default: '' })
+  owners: string; // no
+
+  @Prop({ type: String, default: '' })
+  interior: string; // no
+
+  @Prop({ type: String, default: '' })
   status: string;
 
   @Prop({ type: String, default: '' })
