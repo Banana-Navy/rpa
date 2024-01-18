@@ -8,7 +8,7 @@ import {
 @Schema({ timestamps: true })
 export class Car {
   @Prop({ type: String, default: '' })
-  carId: string; // no
+  carId: string;
 
   @Prop({ type: String, default: '' })
   brand: string;
@@ -41,35 +41,38 @@ export class Car {
   kmEstimated: string;
 
   @Prop({ type: String, default: '' })
-  autoscoutModel: string; // no
+  autoscoutModel: string;
 
   @Prop({ type: Number, default: '' })
-  autoscoutMinPrice: number; // no
+  autoscoutMinPrice: number;
 
   // prix divsé par 1.25 ou 1.6
   @Prop({ type: String, default: '' })
-  calculatedPrice: string; // no
+  calculatedPrice: string;
 
   @Prop({ type: Number, default: '' })
   avgPrice: number;
 
   @Prop({ type: String, default: '' })
-  calculatedMargin: string; // no
+  calculatedMargin: string;
 
   @Prop({ type: String, default: '' })
-  color: string; // no
+  color: string;
 
   @Prop({ type: String, default: '' })
   keyNumber: string;
 
   @Prop({ type: String, default: '' })
-  chassiNumber: string; // no
+  chassiNumber: string;
 
   @Prop({ type: String, default: '' })
-  owners: string; // no
+  owners: string;
 
   @Prop({ type: String, default: '' })
-  interior: string; // no
+  interior: string;
+
+  @Prop({ type: String, default: '' })
+  autoOnePrice: string;
 
   @Prop({ type: String, default: '' })
   status: string;
@@ -81,7 +84,7 @@ export class Car {
   validation: number;
 
   @Prop({ type: mongoose.Types.ObjectId, ref: 'initData' })
-  initData: mongoose.Types.ObjectId; // no
+  initData: mongoose.Types.ObjectId;
 }
 
 export type CarDocument = Car & Document;

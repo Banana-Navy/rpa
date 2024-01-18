@@ -117,6 +117,9 @@ export class CarsService {
 
   async addOneCar(data) {
     try {
+      console.log('########data');
+      console.log(data);
+
       const userId = '65195cde8aebd78605140087';
 
       const initData = await this.initdataModel.find({ userId: userId });
@@ -162,7 +165,7 @@ export class CarsService {
           keyNumber: data['Nombre de cles'],
           owners: data['Proprietaires'],
           color: data['Couleur'],
-          status: data['Statut'],
+          status: data['status'],
           message: data['Message'],
           validation: data['Valider'],
           initData: initData[0]._id,
@@ -193,7 +196,7 @@ export class CarsService {
               keyNumber: data['Nombre de cles'],
               owners: data['Proprietaires'],
               color: data['Couleur'],
-              status: data['Statut'],
+              status: data['status'],
               message: data['Message'],
               validation: data['Valider'],
               initData: initData[0]._id,
@@ -245,6 +248,12 @@ export class CarsService {
       const car = await this.carModel
         .findOne({ carId: carId })
         .populate('initData');
+      return car;
+    } catch (error) {}
+  }
+  async autoOnePendingCars(): Promise<any> {
+    try {
+      const car = await this.carModel.find({ status: 'AutoOnePending' });
       return car;
     } catch (error) {}
   }

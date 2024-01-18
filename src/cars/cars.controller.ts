@@ -43,7 +43,7 @@ export class CarsController {
 
   @Post('/addOneCar')
   @ApiOperation({
-    description: 'add one car',
+    description: 'Add one car',
   })
   async addOneCar(@Body() data) {
     try {
@@ -89,6 +89,14 @@ export class CarsController {
   getCar(@Param('carId') carId: string): Promise<CarDto> {
     try {
       return this.carsService.getCar(carId);
+    } catch (error) {
+      return error;
+    }
+  }
+  @Get('/autoOnePendingCars')
+  autoOnePendingCars(): Promise<CarDto> {
+    try {
+      return this.carsService.autoOnePendingCars();
     } catch (error) {
       return error;
     }
