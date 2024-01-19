@@ -56,7 +56,7 @@ export class CarsController {
 
   @Post('/updateAutoOneCarByCarId')
   @ApiOperation({
-    description: 'update one car',
+    description: 'update one car auto one',
   })
   async updateAutoOneCarByCarId(@Body() data) {
     try {
