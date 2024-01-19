@@ -117,14 +117,13 @@ export class CarsService {
 
   async addOneCar(data) {
     try {
-      console.log('########data');
-      console.log(data);
-
       const userId = '65195cde8aebd78605140087';
 
       const initData = await this.initdataModel.find({ userId: userId });
 
       const existingCar = await this.carModel.find({ carId: data.Offre });
+
+      console.log(existingCar.length);
 
       const prixMinimum = data['Prix minimum'];
 
@@ -204,6 +203,49 @@ export class CarsService {
           },
         );
       }
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async updateAutoOneCarByCarId(data) {
+    try {
+      const userId = '65195cde8aebd78605140087';
+
+      const initData = await this.initdataModel.find({ userId: userId });
+
+      await this.carModel.updateOne(
+        { carId: data.carId },
+        {
+          $set: {
+            carId: data.carId,
+            brand: data.brand,
+            model: data.model,
+            carBody: data.carBody,
+            doorsNumber: data.doorsNumber,
+            version: data.version,
+            registration: data.registration,
+            fuelType: data.fuelType,
+            power: data.power,
+            transmission: data.transmission,
+            kmEstimated: data.kmEstimated,
+            autoscoutModel: data.autoscoutModel,
+            autoscoutMinPrice: data.autoscoutMinPrice,
+            calculatedPrice: data.calculatedPrice,
+            avgPrice: data.avgPrice,
+            calculatedMargin: data.calculatedMargin,
+            interior: data.interior,
+            chassiNumber: data.chassiNumber,
+            keyNumber: data.keyNumber,
+            owners: data.owners,
+            color: data.color,
+            status: data.status,
+            message: data.message,
+            validation: data.validation,
+            initData: initData[0]._id,
+          },
+        },
+      );
     } catch (error) {
       return error;
     }

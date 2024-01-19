@@ -43,11 +43,24 @@ export class CarsController {
 
   @Post('/addOneCar')
   @ApiOperation({
-    description: 'Add one car',
+    description: 'add one car',
   })
   async addOneCar(@Body() data) {
     try {
       const response = await this.carsService.addOneCar(data);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  @Post('/updateAutoOneCarByCarId')
+  @ApiOperation({
+    description: 'update one car',
+  })
+  async updateAutoOneCarByCarId(@Body() data) {
+    try {
+      const response = await this.carsService.updateAutoOneCarByCarId(data);
       return response;
     } catch (error) {
       return error;
