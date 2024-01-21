@@ -119,6 +119,10 @@ export class CarsService {
     try {
       console.log('addOneCar');
 
+      console.log('################');
+      console.log(data);
+      console.log('################');
+
       const userId = '65195cde8aebd78605140087';
 
       const initData = await this.initdataModel.find({ userId: userId });
