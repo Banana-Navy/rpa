@@ -117,6 +117,8 @@ export class CarsService {
 
   async addOneCar(data) {
     try {
+      console.log('addOneCar');
+
       const userId = '65195cde8aebd78605140087';
 
       const initData = await this.initdataModel.find({ userId: userId });
@@ -240,6 +242,7 @@ export class CarsService {
             owners: data.owners,
             color: data.color,
             status: data.status,
+            autoOnePrice: data.autoOnePrice,
             message: data.message,
             validation: data.validation,
             initData: initData[0]._id,
