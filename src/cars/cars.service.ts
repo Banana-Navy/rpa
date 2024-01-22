@@ -282,16 +282,29 @@ export class CarsService {
     }
   }
 
-  async getTodayCars(): Promise<any> {
+  async getTodayCars(status): Promise<any> {
     try {
-      const todayDate = new Date();
-      const todayCars = await this.carModel.find({
-        createdAt: {
-          $gte: new Date(todayDate.setHours(0, 0, 0, 0)),
-          $lt: new Date(todayDate.setHours(23, 59, 59, 999)),
-        },
-      });
-      return todayCars;
+      if (status == 'TODAY') {
+        const todayDate = new Date();
+        const todayCars = await this.carModel.find({
+          createdAt: {
+            $gte: new Date(todayDate.setHours(0, 0, 0, 0)),
+            $lt: new Date(todayDate.setHours(23, 59, 59, 999)),
+          },
+          autoOneStatus: '',
+        });
+        return todayCars;
+      } else if (status == 'PENDING') {
+        const todayDate = new Date();
+        const todayCars = await this.carModel.find({
+          createdAt: {
+            $gte: new Date(todayDate.setHours(0, 0, 0, 0)),
+            $lt: new Date(todayDate.setHours(23, 59, 59, 999)),
+          },
+          autoOneStatus: 'PENDING',
+        });
+        return todayCars;
+      }
     } catch (error) {
       console.log(error);
     }
