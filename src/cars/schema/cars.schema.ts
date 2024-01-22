@@ -75,7 +75,10 @@ export class Car {
   autoOnePrice: string;
 
   @Prop({ type: String, default: '' })
-  status: string;
+  autoOneStatus: string;
+
+  @Prop({ type: String, default: '' })
+  autoScoutStatus: string;
 
   @Prop({ type: String, default: '' })
   message: string;

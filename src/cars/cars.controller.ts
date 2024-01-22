@@ -43,7 +43,7 @@ export class CarsController {
 
   @Post('/addOneCar')
   @ApiOperation({
-    description: 'Add one car',
+    description: 'add one car',
   })
   async addOneCar(@Body() data) {
     try {
