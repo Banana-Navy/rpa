@@ -22,35 +22,12 @@ export class CarsService {
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
       let data = XLSX.utils.sheet_to_json(worksheet);
 
-      interface ExcelCarData {
-        Offre: string;
-        Marque: string;
-        Modèle: string;
-        Carrosserie: string;
-        'Nombre de portes': string;
-        Version: string;
-        Immatriculation: string;
-        Carburant: string;
-        Puissance: string;
-        Transmission: string;
-        'Kilométrage estimé': string;
-        'Modèle Choisi': string;
-        'Prix minimum': string;
-        'prix min divisé par 1,25': string;
-        avgPrice: string;
-        Interieur: string;
-        Proprietaires: string;
-        'Numero de chassi': string;
-        'Nombre de cles': string;
-        Couleur: string;
-        Marge: string;
-        Statut: string;
-        Message: string;
-        Valider: number;
-        initData: string;
-      }
+    
 
       for (const item of data) {
+        console.log(item)
+        console.log("****************")
+        console.log(data)
         const carId = item['Offre'];
         const existingCar = await this.carModel.find({ carId: carId });
         const prixMinimum = item['Prix minimum'];
@@ -65,34 +42,34 @@ export class CarsService {
             ? parseInt(cleanedPrixMinimum, 10)
             : cleanedPrixMinimum;
 
-        const prixMoyen = item['Prix moyen']
-          ? parseFloat(item['Prix moyen']).toFixed(2)
+        const prixMoyen = item['autoscoutMinPrice']
+          ? parseFloat(item['autoscoutMinPrice']).toFixed(2)
           : null;
 
         const carData = {
           carId,
-          brand: item['Marque'],
-          model: item['Modèle'],
-          carBody: item['Carrosserie'],
-          doorsNumber: item['Nombre de portes'].trim(),
-          version: item['Version'],
-          registration: item['Immatriculation'],
-          fuelType: item['Carburant'],
-          power: item['Puissance'],
-          transmission: item['Transmission'],
-          kmEstimated: item['Kilométrage estimé'],
-          autoscoutModel: item['Modèle Choisi'],
+          brand: item['brand'],
+          model: item['model'],
+          carBody: item['carBody'],
+          doorsNumber: item['doorsNumber'].trim(),
+          version: item['version'],
+          registration: item['registration'],
+          fuelType: item['fuelType'],
+          power: item['power'],
+          transmission: item['transmission'],
+          kmEstimated: item['kmEstimated'],
+          autoscoutModel: item['autoscoutModel'],
           autoscoutMinPrice: autoscoutMinPrice,
-          calculatedPrice: item['Prix minimum divisé'],
+          calculatedPrice: item['calculatedPrice'],
           avgPrice: prixMoyen,
-          calculatedMargin: item['Marge'],
-          interior: data['Interieur'],
-          chassiNumber: data['Numero de chassi'],
-          keyNumber: data['Nombre de cles'],
-          owners: data['Proprietaires'],
-          color: data['Couleur'],
-          message: item['Message'],
-          validation: item['Valider'],
+          calculatedMargin: item['marge'],
+          interior: data['interior'],
+          chassiNumber: data['chassiNumber'],
+          keyNumber: data['keyNumber'],
+          owners: data['owners'],
+          color: data['color'],
+          message: item['message'],
+          validation: item['validation'],
           initData: null,
         };
 
@@ -114,6 +91,7 @@ export class CarsService {
     }
   }
 
+ 
   async addOneCar(data) {
     try {
       console.log('addOneCar');
@@ -126,7 +104,7 @@ export class CarsService {
 
       const initData = await this.initdataModel.find({ userId: userId });
 
-      const existingCar = await this.carModel.find({ carId: data.Offre });
+      const existingCar = await this.carModel.find({ carId: data.carId });
 
       console.log(existingCar.length);
 
@@ -142,71 +120,71 @@ export class CarsService {
           ? parseInt(cleanedPrixMinimum, 10)
           : cleanedPrixMinimum;
 
-      const prixMoyen = data['Prix moyen']
-        ? parseFloat(data['Prix moyen']).toFixed(2)
+      const prixMoyen = data['autoscoutMinPrice']
+        ? parseFloat(data['autoscoutMinPrice']).toFixed(2)
         : null;
 
       if (existingCar.length == 0) {
         const res = await this.carModel.create({
-          carId: data.Offre,
-          brand: data.Marque,
-          model: data['Modèle'],
-          carBody: data['Carrosserie'],
-          doorsNumber: data['Nombre de portes'],
-          version: data.Version,
-          registration: data.Immatriculation,
-          fuelType: data.Carburant,
-          power: data.Puissance,
-          transmission: data.Transmission,
-          kmEstimated: data['Kilométrage estimé'],
-          autoscoutModel: data['Modele Choisi'],
+          carId: data.carId,
+          brand: data.brand,
+          model: data.model,
+          carBody: data.carBody,
+          doorsNumber: data.doorsNumber,
+          version: data.version,
+          registration: data.registration,
+          fuelType: data.fuelType,
+          power: data.power,
+          transmission: data.transmission,
+          kmEstimated: data.kmEstimated,
+          autoscoutModel: data.autoscoutModel,
           autoscoutMinPrice: autoscoutMinPrice,
-          calculatedPrice: data['Prix minimum divisé'],
+          calculatedPrice: data.calculatedPrice,
           avgPrice: prixMoyen,
-          calculatedMargin: data['Marge'],
-          interior: data['Interieur'],
-          chassiNumber: data['Numero de chassi'],
-          keyNumber: data['Nombre de cles'],
-          owners: data['Proprietaires'],
-          color: data['Couleur'],
+          calculatedMargin: data.calculatedMargin,
+          interior: data['interior'],
+          chassiNumber: data['chassiNumber'],
+          keyNumber: data['keyNumber'],
+          owners: data['owners'],
+          color: data['color'],
           status: data['status'],
           autoOneStatus: data.autoOneStatus,
           autoScoutStatus: data.autoScoutStatus,
-          message: data['Message'],
-          validation: data['Valider'],
+          message: data['message'],
+          validation: data['validation'],
           initData: initData[0]._id,
         });
       } else {
         const res = await this.carModel.updateOne(
-          { carId: data.Offre },
+          { carId: data.carId },
           {
             $set: {
-              carId: data.Offre,
-              brand: data.Marque,
-              model: data['Modèle'],
-              carBody: data['Carrosserie'],
-              doorsNumber: data['Nombre de portes'],
-              version: data.Version,
-              registration: data.Immatriculation,
-              fuelType: data.Carburant,
-              power: data.Puissance,
-              transmission: data.Transmission,
-              kmEstimated: data['Kilométrage estimé'],
-              autoscoutModel: data['Modele Choisi'],
+              carId: data.carId,
+              brand: data.brand,
+              model: data.model,
+              carBody: data.carBody,
+              doorsNumber: data.doorsNumber,
+              version: data.version,
+              registration: data.registration,
+              fuelType: data.fuelType,
+              power: data.power,
+              transmission: data.transmission,
+              kmEstimated: data.kmEstimated,
+              autoscoutModel: data.autoscoutModel,
               autoscoutMinPrice: autoscoutMinPrice,
-              calculatedPrice: data['Prix minimum divisé'],
-              avgPrice: data['Prix moyen'],
-              calculatedMargin: data['Marge'],
-              interior: data['Interieur'],
-              chassiNumber: data['Numero de chassi'],
-              keyNumber: data['Nombre de cles'],
-              owners: data['Proprietaires'],
-              color: data['Couleur'],
+              calculatedPrice: data.calculatedPrice,
+              avgPrice: data['autoscoutMinPrice'],
+              calculatedMargin: data.calculatedMargin,
+              interior: data['interior'],
+              chassiNumber: data['chassiNumber'],
+              keyNumber: data['keyNumber'],
+              owners: data['owners'],
+              color: data['color'],
               status: data['status'],
               autoOneStatus: data.autoOneStatus,
               autoScoutStatus: data.autoScoutStatus,
-              message: data['Message'],
-              validation: data['Valider'],
+              message: data['message'],
+              validation: data['validation'],
               initData: initData[0]._id,
             },
           },

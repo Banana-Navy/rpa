@@ -29,6 +29,9 @@ export class initData {
 
   @Prop({ type: Number, default: 0 })
   nomberOfRequest: number;
+
+  @Prop({ type: Boolean, default: false })
+  priceEstimationStatus: boolean;
 }
 
 export type initDataDocument = initData & Document;
