@@ -65,11 +65,16 @@ export class InitDataService {
   }
 
   async updateData(data) {
+    console.log(data)
     try {
-      const userId = '65195cde8aebd78605140087';
-      delete data.userId;
-      await this.initdataModel.updateOne({ userId: userId }, { $set: data });
+       // const userId = '65195cde8aebd78605140087';
+      //delete data.userId;
+      //await this.initdataModel.updateOne({ userId: userId }, { $set: data });
+      //TO DO : why the userId is an array ?
+      let t =await this.initdataModel.findOneAndUpdate({ email: "info@karamanmotors.be" }, { $set: data });
+      console.log(t)
     } catch (error) {
+      console.log("🚀 ~ InitDataService ~ updateData ~ error:", error)
       return error;
     }
   }

@@ -72,6 +72,8 @@ export class CarsService {
           validation: item['validation'],
           initData: null,
         };
+        
+
 
         const initData = await this.initdataModel.find({ userId: userId });
 
@@ -194,6 +196,7 @@ export class CarsService {
       return error;
     }
   }
+ 
 
   async updateAutoOneCarByCarId(data) {
     try {
@@ -236,6 +239,9 @@ export class CarsService {
           },
         },
       );
+    
+    let updateted = await this.initdataModel.findOneAndUpdate({ autoOneRequestCount: initData[0].autoOneRequestCount });
+      console.log(updateted);
     } catch (error) {
       return error;
     }

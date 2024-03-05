@@ -50,7 +50,7 @@ export class InitDataController {
     }
   }
 
-  @Put('')
+   @Put('')
   @ApiResponse({
     type: InitDataDto,
   })
@@ -63,5 +63,6 @@ export class InitDataController {
     } catch (error) {
       return error;
     }
-  }
+  } 
+
 }

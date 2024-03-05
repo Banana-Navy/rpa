@@ -16,4 +16,8 @@ export class InitDataDto {
   year: string;
   @ApiProperty()
   ratio: string;
+  @ApiProperty()
+  priceEstimationStatus: boolean;
+  @ApiProperty()
+  autoOneRequestCount: number;
 }

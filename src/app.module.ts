@@ -11,6 +11,7 @@ import { InitDataModule } from './init-data/init-data.module';
 import { RequestCounter } from './counter/request-counter';
 import { RequestCounterService } from './counter/request-counter.service';
 import { RequestCounterModule } from './counter/request-counter.module';
+import { TasksModule } from './tasks/tasks.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { RequestCounterModule } from './counter/request-counter.module';
     CarsModule,
     InitDataModule,
     RequestCounterModule,
+    TasksModule
   ],
 
   controllers: [AppController],
